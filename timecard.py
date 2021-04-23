@@ -12,15 +12,15 @@ lineList = f.readlines()
 #check if txt file is empty
 if len(lineList) > 0:
 	#check whether to login or logout
-	if "LOGOUT" in lineList[len(lineList) - 2]:
+	if "LOGOUT" in lineList[len(lineList) - 1]:
 		print("Login - Starting work")
 		f = open("timecard.txt", "a")
-		f.write("LOGIN " + curTime + "\n")
+		f.write("\nLOGIN " + curTime)
 		f.close()
-	elif "LOGIN" in lineList[len(lineList) - 2]:
+	elif "LOGIN" in lineList[len(lineList) - 1]:
 		print("Logout - Ending work")
 		f = open("timecard.txt", "a")
-		f.write("LOGOUT " + curTime + " - ")
+		f.write("\nLOGOUT " + curTime + " - ")
 		#find previous time
 		prevLine = lineList[len(lineList) - 2]
 		prevTime = re.search("\d\d:\d\d:\d\d", prevLine)
@@ -29,7 +29,7 @@ if len(lineList) > 0:
 		fmt = "%H:%M:%S"
 		timeSpent = datetime.strptime(curTime, fmt) - datetime.strptime(prevTime, fmt)
 		timeSpent = str(timeSpent)
-		f.write(timeSpent + "\n")
+		f.write(timeSpent)
 		f.close()
 		#show time spent
 		print("Time spent - " + timeSpent)
@@ -37,5 +37,5 @@ if len(lineList) > 0:
 else:
 	print("Login - Starting work")
 	f = open("timecard.txt", "a")
-	f.write("LOGIN " + curTime + "\n")
+	f.write("LOGIN " + curTime)
 	f.close()
